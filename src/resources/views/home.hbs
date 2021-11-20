@@ -1,0 +1,39 @@
+{{!-- 
+
+<div class='mt-4 container'>
+    <div class='row'>
+        {{#each data}}
+            <div class='col-sm-6 col-lg-4 mt-4'>
+                <div class='card'>
+                    <a href="/travel/{{this.title}}">
+                          <img
+                        src='{{this.imageUrl}}'
+                        class='card-img-top'
+                        alt='{{this.title}}'
+                    />
+                    </a>
+                  
+                    <div class='card-body'>
+                        <h5 class='card-title'>{{this.title}}</h5>
+                        <p class='card-text'>{{this.author}}</p>
+                        <a
+                            href='/travel/{{this.title}}'
+                            class='btn btn-primary'
+                        >Show detail</a>
+                    </div>
+
+                </div>
+            </div>
+        {{/each}}
+    </div>
+</div> --}}
+
+    <div class='mt-4 container' style="height: 1000px;">
+        <div class='row' id="content">
+        </div>
+    </div>
+         
+
+<div id="pagination"></div>
+
+

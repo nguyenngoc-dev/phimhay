@@ -1,0 +1,178 @@
+<form action="/travel/handle-visited" method="post" name="contain-form">
+    <a href='/travel/trash' class='ml-3'>Go to Trash ({{this.deletedData}})</a>
+    <div class='form-check d-flex align-items-center ml-3'>
+        <input type='checkbox' class='form-check-input' id='checkAll' />
+        <label class='form-check-label' for='checkAll'>Chọn tất cả</label>
+        <select class='form-control form-control-sm select-action' name="action" required>
+            <option value=''>-- Hành động --</option>
+            <option value='delete'>Xóa</option>
+
+        </select>
+        <button type="submit" class='btn btn-primary  execAction' disabled> Thực hiện</button>
+
+        <div class="form-group search">
+            <input type="text" class="form-control" id="search-input" placeholder="Nhập từ khóa tìm kiếm ...">
+            <button type="button"  class="btn btn-primary" id = 'search-btn'>Search</button>
+        </div>
+        
+    </div>
+
+    <table class='table mt-4'>
+        <thead>
+            <tr>
+                <th colspan='2'></th>
+                <th scope='col'>STT</th>
+                <th scope='col'>Title
+                    {{{sortable 'title' _sort}}}
+                </th>
+                <th scope='col'>Author
+                     {{{sortable 'author' _sort}}}
+                </th>
+                <th scope='col'>Description
+                     {{{sortable 'description' _sort}}}
+                </th>
+                <th scope='col'></th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each data}}
+                <tr>
+                    <td></td>
+                    <td>
+                        <div>
+                            <input
+                                type='checkbox'
+                                class='form-check-input'
+                                value={{this._id}}
+                                {{!-- thêm [] sau name để dữ liệu nhận đc luôn là mảng
+                                dù chỉ có một giá trị--}}
+                                name='checkboxEach[]'
+                            /></div>
+                    </td>
+                    <td scope='row'>
+                        {{sum @index 1}}
+                    </td>
+                    <td>{{this.title}}</td>
+                    <td>{{this.author}}</td>
+                    <td>{{this.description}}</td>
+                    <td>
+                        <a
+                            href='/travel/{{this._id}}/edit'
+                            class='btn btn-link mr-4'
+                        >Sửa</a>
+                        <a
+                            href='#'
+                            class='btn btn-link'
+                            data-toggle='modal'
+                            data-target='#delete-travel'
+                            data-id={{this._id}}
+                        >Xóa</a>
+                    </td>
+                </tr>
+            {{else}}
+                <tr>
+                    <td colspan='5'>
+                        Has no visited travel.
+                        <a href='/travel/create'> Go to create it</a>
+                    </td>
+                </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</form>
+
+{{! Model for delete visited travel }}
+<div class='modal' tabindex='-1' role='dialog' id='delete-travel'>
+    <div class='modal-dialog' role='document'>
+        <div class='modal-content'>
+            <div class='modal-header'>
+                <h5 class='modal-title'>Delete Visited Travel</h5>
+                <button
+                    type='button'
+                    class='close'
+                    data-dismiss='modal'
+                    aria-label='Close'
+                >
+                    <span aria-hidden='true'>&times;</span>
+                </button>
+            </div>
+            <div class='modal-body'>
+                <p>Are you sure?</p>
+            </div>
+            <div class='modal-footer'>
+                <button
+                    type='button'
+                    class='btn btn-primary'
+                    id='delete-btn'
+                >Delete</button>
+                <button
+                    type='button'
+                    class='btn btn-secondary'
+                    data-dismiss='modal'
+                >Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<form method='post' name='form-delete'></form>
+<form method='post' name='form-search'></form>
+<script>
+    document.addEventListener('DOMContentLoaded', function() { 
+        var id;
+        // lắng nghe model show
+        $('#delete-travel').on('show.bs.modal', function (event) { 
+        var button = $(event.relatedTarget);
+        id = button.data('id') 
+        }); 
+        const deleteBtn = document.querySelector("#delete-btn"); 
+        const form = document.forms['form-delete']; 
+        //click nút xóa ở model
+        deleteBtn.onclick = function() { 
+            form.action = '/travel/' + id + '?_method=DELETE'; 
+            form.submit()
+        } 
+        var checkAll = $('#checkAll');
+        var checkboxEach = $("input[name='checkboxEach[]']")
+        var execAction = $('.execAction')
+        var containForm = $('form[name = "contain-form"]')
+  
+        // check all changed
+        checkAll.change(function() {
+            var isCheckAll = $(this).prop('checked');
+            checkboxEach.prop('checked',isCheckAll)
+            enableExecBtn()
+        })
+        // checkboxEach changed
+        checkboxEach.change(function() {
+          var isCheckAll =  $("input[name='checkboxEach[]']:checked").length === checkboxEach.length
+            checkAll.prop('checked',isCheckAll)
+            enableExecBtn()
+        })
+        // cho phép nút thực hiện enable
+        function enableExecBtn() {
+            var checked =  $("input[name='checkboxEach[]']:checked").length ;
+            if(checked) {
+                execAction.attr('disabled',false)
+            }
+            else {
+                execAction.attr('disabled',true)
+
+            }
+        }
+        // search by title;
+        const searchBtn = $('#search-btn');
+        const searchInput = $('#search-input');
+        const searchForm = document.forms['form-search'];
+       
+        // lắng nghe sự kiện click vào nút search
+        searchBtn.click (() =>  {
+            var valueSearchInput = searchInput.val();
+            searchForm.action = '/travel/search/' + valueSearchInput + '?_method=post'; 
+            searchForm.submit();
+        })
+      
+
+       
+    });
+
+</script>
