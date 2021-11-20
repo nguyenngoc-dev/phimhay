@@ -12,7 +12,7 @@ app.use(express.json());
 app.use(morgan('combined'));
 
 app.use(express.static(path.join(__dirname, 'resources/public')));
-const port = 3000; 
+const port = process.env.PORT; 
 app.engine(
     'hbs',
     handlebars({ extname: '.hbs'})
