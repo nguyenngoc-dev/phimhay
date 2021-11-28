@@ -242,6 +242,15 @@ body {
   display: none;
   cursor: pointer; }
 
+.header-right-search-btn .close-search {
+  display: none; }
+
+.header-right-search-btn .search-icon.hide-search-icon {
+  display: none; }
+
+.header-right-search-btn .close-search.close-search-show {
+  display: block; }
+
 .header-center-link.search {
   background-color: white;
   border-radius: 25px;
@@ -250,7 +259,19 @@ body {
   overflow: hidden;
   height: 35px;
   display: flex;
-  align-items: center; }
+  align-items: center;
+  animation: slideDown linear 0.3s; }
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-5px); }
+  to {
+    transform: translateY(0);
+    opacity: 1; } }
+
+.header-center-link.search.show {
+  display: flex; }
 
 .header-center-link .search-icon {
   color: #918b8b;
@@ -262,7 +283,8 @@ body {
   outline: none;
   padding: 6px 12px;
   margin-right: 16px;
-  font-size: 1.4rem; }
+  font-size: 1.4rem;
+  width: 100%; }
 
 .header-center {
   display: flex;
@@ -311,11 +333,59 @@ body {
 
 @media (max-width: 768px) {
   .header-center-link.search {
-    display: none; }
+    display: none;
+    width: 100%;
+    align-items: center;
+    position: absolute;
+    top: 65px;
+    left: 0;
+    box-shadow: 5px 5px 10px #ccc;
+    border-radius: unset;
+    height: 40px;
+    padding-left: 28px; }
   .header-right-list {
     display: none; }
   .header-right-search-btn {
     display: block; } }
 
-h1 {
-  font: 100; }
+.footer {
+  background-color: #032541; }
+
+.footer-logo {
+  width: 150px;
+  height: 150px;
+  padding-left: 12px;
+  margin-top: 12px; }
+
+.footer-column {
+  margin-top: 24px; }
+
+.footer-column-heading {
+  font-size: 2rem;
+  color: white; }
+
+.footer-column-link {
+  font-size: 1.6rem;
+  color: white;
+  padding: 12px;
+  padding-left: 0;
+  padding-bottom: 14px; }
+
+.footer-column-link:hover {
+  color: #01b4e4; }
+
+@media (max-width: 996px) {
+  .footer-column {
+    text-align: center; }
+  .footer-column-link {
+    padding: 14px; } }
+
+.home {
+  margin-top: 65px;
+  padding-top: 30px; }
+
+.home-filter {
+  padding: 12px; }
+
+.home-filter-heading {
+  font-size: 3rem; }

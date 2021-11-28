@@ -7,7 +7,11 @@ function handleClick() {
     const navOverlay = $('.nav-overlay');
     const headerMenu = $(' .header-menu-list');
     const app = document.querySelector('.app')
-    
+    const searchBtn = $('.header-right-search-btn')
+    const searchIcon = $('.header-right-search-btn .search-icon');
+    const closeIcon = $('.header-right-search-btn .close-search');
+    const searchInput = $('.header-center-link.search')
+    console.log(searchInput)
 
     accountBtn.click(() => {
         account.toggleClass('active')
@@ -46,8 +50,7 @@ function handleClick() {
         // }
     }
     
-    if($( window ).innerWidth() < 1200)
-    {
+   
       
         // headerMenuItem.each(( index,item) => {
       
@@ -80,7 +83,29 @@ function handleClick() {
                 display:'none'
             })
         })
-    }
+    //handle click search btn
+    searchIcon.click(function() {
+        searchIcon.toggleClass('hide-search-icon');
+        closeIcon.toggleClass('close-search-show');
+        searchInput.addClass('show');
+        
+    })
+    closeIcon.click(function() {
+        searchIcon.toggleClass('hide-search-icon');
+        closeIcon.toggleClass('close-search-show');
+        searchInput.removeClass('show')
+    })
+    //handle event enter key of search input
+    searchInput.on('keypress',function(e) {
+        if(e.which == 13) {
+            
+            searchInput.removeClass('show')
+            searchIcon.removeClass('hide-search-icon');
+            closeIcon.removeClass('close-search-show');
+            searchInput.value = ''
+        }
+    });
+    
  
   
 

@@ -1,35 +1,37 @@
-{{!-- 
 
-<div class='mt-4 container'>
-    <div class='row'>
-        {{#each data}}
-            <div class='col-sm-6 col-lg-4 mt-4'>
-                <div class='card'>
-                    <a href="/travel/{{this.title}}">
-                          <img
-                        src='{{this.imageUrl}}'
-                        class='card-img-top'
-                        alt='{{this.title}}'
-                    />
-                    </a>
-                  
-                    <div class='card-body'>
-                        <h5 class='card-title'>{{this.title}}</h5>
-                        <p class='card-text'>{{this.author}}</p>
-                        <a
-                            href='/travel/{{this.title}}'
-                            class='btn btn-primary'
-                        >Show detail</a>
+    <div class=' container-fluid home' style="height: 1000px;">
+        <div class='row' id="content">
+            <div class="col-lg-2 hidden-md">
+                <div class="home-filter">
+                    <h1 class="home-filter-heading">
+                        Popular Movies
+                    </h1>
+                    <div class="home-filter-sort">
+                        <div class="home-filter-sort-header">
+
+                            <h3 class="home-filter-sort-heading">
+                                Sort
+                            </h3>
+                            <i class="fas fa-chevron-right home-filter-sort-arrow"></i>
+                        </div>
+                    
+                        <div class="home-filter-sort-slide">
+                            <div class="home-filter-sort-slide-des">
+                                Sort Results By
+                            </div>
+                            <select name="sort" id="sort">
+                                <option value="ins">Title(A-Z)</option>
+                                <option value="des">Title(Z-A)</option>
+                                <option value="date">Date</option>
+                            </select>
+                        </div>
                     </div>
-
+                    
                 </div>
             </div>
-        {{/each}}
-    </div>
-</div> --}}
-
-    <div class='mt-4 container' style="height: 1000px;">
-        <div class='row' id="content">
+            <div class="col-lg-10 col-md-12 col-sm-12">
+                loạciacnianc
+            </div>
         </div>
     </div>
          
